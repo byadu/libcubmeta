@@ -1,4 +1,9 @@
 edb_dsn=NULL;est_storetype=NULL;est_storename=NULL;edb_name=NULL;edb_user=NULL;edb_pass=NULL;edb_hostname=NULL;edb_port=NULL
+#' @export
+#' @title getdbstores
+#' @description Get all 'cuborg' warehouse database type of stores
+#' @param cfg is the configuration/metadata database connection
+#' @details Returns all configured database stores
 getdbstores<- function(cfg) {
 #	q<- "select est_storename, edb_name, edb_user, edb_pass, edb_hostname, edb_port from etl_store, etl_dbstore where edb_dsn='Mysql Dsn' and est_dbdirid=edb_dbid and est_storetype='D'"
 #	dbGetQuery(configdb, q)
@@ -9,6 +14,12 @@ getdbstores<- function(cfg) {
 	return(stdb)
 	}
 
+#' @export
+#' @title getstore
+#' @description Get 'cuborg' warehouse store
+#' @param cfg is the configuration/metadata database connection
+#' @param store is the data base store
+#' @details Returns store particulars
 getstore<- function(cfg, store) {
 #	q<- paste0("select edb_name, edb_user, edb_pass, edb_hostname, edb_port from etl_store, etl_dbstore where edb_dsn='Mysql Dsn' and est_dbdirid=edb_dbid and est_storetype='D' and est_storename='", store, "'")
 #	dbGetQuery(configdb, q)
@@ -68,7 +79,7 @@ getjoins<- function(cfg, tjoins) {
 #	tj<- selectcols(cfg$table_joins, c('tj_tab1', 'tj_tab2', 'tj_col1', 'tj_col2'))
 	tj<- selectcols(tjoins, c('tj_tab1', 'tj_tab2', 'tj_col1', 'tj_col2'))
 	tj<- as.data.frame(tj)
-	colnames(tj)<- c('Fact Table', 'Dimension Table', 'Fact Column', 'Dimension Column')
+	colnames(tj)<- c('Fact_Table', 'Dimension_Table', 'Fact_Column', 'Dimension_Column')
 #	for(i in 1:4)
 #		tj[,i]<- as.factor(tj[,i])
 	tj
